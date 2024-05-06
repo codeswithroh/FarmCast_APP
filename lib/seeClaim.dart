@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:farmcast_app/widgets/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,6 +10,8 @@ class SeeClaim extends StatefulWidget {
 }
 
 class _SeeClaim extends State<SeeClaim> {
+  int _selectedTabIndex = 1;
+
   late Future<List<Map<String, dynamic>>> _pendingClaims;
   late Future<List<Map<String, dynamic>>> _approvedClaims;
   late Future<List<Map<String, dynamic>>> _rejectedClaims;
@@ -38,15 +41,19 @@ class _SeeClaim extends State<SeeClaim> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: Color(0xFFD6F8D6),
         appBar: AppBar(
           backgroundColor: Color(0xFFD6F8D6),
           title: Text('Farmcast'),
-          leading: Icon(
-            Icons.agriculture,
-            size: 40,
-            color: Color(0xFF55505C),
+          leading: const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Icon(
+              Icons.agriculture,
+              size: 40,
+              color: Color(0xFF55505C),
+            ),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(text: 'Pending'),
               Tab(text: 'Approved'),
@@ -61,6 +68,7 @@ class _SeeClaim extends State<SeeClaim> {
             _buildClaimsList(_rejectedClaims),
           ],
         ),
+        bottomNavigationBar: BottomNav(selectedIndex: _selectedTabIndex),
       ),
     );
   }
@@ -73,37 +81,44 @@ class _SeeClaim extends State<SeeClaim> {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.data!.isEmpty) {
+          return const Center(
+              child: Text('No claims found',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)));
         } else {
           final claims = snapshot.data!;
           return ListView.builder(
             itemCount: claims.length,
             itemBuilder: (context, index) {
-              return Card(
-                color: Color(0xFF7FC6A4),
-                margin: EdgeInsets.all(10),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Reason: ${claims[index]['reason']}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  color: Color(0xFF7FC6A4),
+                  margin: EdgeInsets.all(10),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Reason: ${claims[index]['reason']}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        'From Date: ${_formatDate(claims[index]['fromTime'])}',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        'To Date: ${_formatDate(claims[index]['toTime'])}',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
+                        SizedBox(height: 5),
+                        Text(
+                          'From Date: ${_formatDate(claims[index]['fromTime'])}',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          'To Date: ${_formatDate(claims[index]['toTime'])}',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

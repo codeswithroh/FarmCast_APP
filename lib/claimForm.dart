@@ -1,3 +1,4 @@
+import 'package:farmcast_app/widgets/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,6 +22,7 @@ class _ClaimFormState extends State<ClaimForm> {
   String _fromDate = '';
   String _toDate = '';
   String _selectedReason = '';
+  int selectedIndex = 0;
 
   TextEditingController _fromDateController = TextEditingController();
   TextEditingController _toDateController = TextEditingController();
@@ -214,6 +216,7 @@ class _ClaimFormState extends State<ClaimForm> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNav(selectedIndex: selectedIndex),
     );
   }
 

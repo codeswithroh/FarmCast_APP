@@ -1,5 +1,6 @@
 import 'package:farmcast_app/claimForm.dart';
 import 'package:farmcast_app/seeClaim.dart';
+import 'package:farmcast_app/widgets/bottomNav.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,21 +23,6 @@ class MainAppScreen extends StatefulWidget {
 }
 
 class _MainAppScreenState extends State<MainAppScreen> {
-  int _selectedTabIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedTabIndex = index;
-    });
-
-    if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SeeClaim()),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,23 +42,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
           ),
         ),
       ),
-      body: _selectedTabIndex == 0 ? ClaimForm() : SeeClaim(),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 45, 133, 91),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monetization_on, color: Colors.white),
-            label: 'Claim',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment, color: Colors.white),
-            label: 'Status',
-          ),
-        ],
-        currentIndex: _selectedTabIndex,
-        selectedItemColor: Color(0xFF55505C),
-        onTap: _onItemTapped,
-      ),
+      body: const ClaimForm(),
     );
   }
 }
