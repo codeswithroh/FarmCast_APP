@@ -1,5 +1,6 @@
 import 'package:farmcast_app/claimForm.dart';
 import 'package:farmcast_app/seeClaim.dart';
+import 'package:farmcast_app/showData.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatefulWidget {
@@ -30,6 +31,13 @@ class _BottomNavState extends State<BottomNav> {
         MaterialPageRoute(builder: (context) => SeeClaim()),
       );
     }
+
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ReadingScreen()),
+      );
+    }
   }
 
   @override
@@ -52,6 +60,10 @@ class _BottomNavState extends State<BottomNav> {
         BottomNavigationBarItem(
           icon: Icon(Icons.assignment),
           label: 'Status',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.receipt),
+          label: 'Readings',
         ),
       ],
       currentIndex: widget.selectedIndex,
