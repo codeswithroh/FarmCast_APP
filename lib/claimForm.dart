@@ -38,6 +38,14 @@ class _ClaimFormState extends State<ClaimForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFD6F8D6),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFD6F8D6),
+        title: const Text('farmcast'),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Image.asset('assets/images/logo.png'),
+        ),
+      ),
       body: ListView(
         children: [
           Padding(

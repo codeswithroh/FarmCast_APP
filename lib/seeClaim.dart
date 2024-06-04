@@ -44,14 +44,10 @@ class _SeeClaim extends State<SeeClaim> {
         backgroundColor: Color(0xFFD6F8D6),
         appBar: AppBar(
           backgroundColor: Color(0xFFD6F8D6),
-          title: Text('Farmcast'),
-          leading: const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Icon(
-              Icons.agriculture,
-              size: 40,
-              color: Color(0xFF55505C),
-            ),
+          title: const Text('farmcast'),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Image.asset('assets/images/logo.png'),
           ),
           bottom: const TabBar(
             tabs: [

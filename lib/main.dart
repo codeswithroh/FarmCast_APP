@@ -27,21 +27,6 @@ class _MainAppScreenState extends State<MainAppScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFD6F8D6),
-      appBar: AppBar(
-        backgroundColor: Color(0xFFD6F8D6),
-        title: const Text(
-          'Farmcast',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Icon(
-            Icons.agriculture, // You can use any icon you want here
-            size: 40, // Adjust size as per your requirement
-            color: Color(0xFF55505C), // Adjust color as per your requirement
-          ),
-        ),
-      ),
       body: const ClaimForm(),
     );
   }
